@@ -1,17 +1,14 @@
-package Lab4;
 import java.util.Scanner;
 
-public class lab4{
+public class lab4 {
     private static int accountNumber;
     private static String accountHolderName;
     private static double accountBalance;
-    private static String transactionDetails = "";
+    private static Scanner scanner = new Scanner(System.in);
 
-    static Scanner scanner = new Scanner(System.in);
-    
     public static void main(String[] args) {
         initializeCustomer();
-        int choice=0;
+        int choice = 0;
         boolean exit = false;
         while (!exit) {
             System.out.println("Menu:");
@@ -43,7 +40,7 @@ public class lab4{
             }
         }
     }
-    
+
     public static void initializeCustomer() {
         System.out.println("Enter account number:");
         accountNumber = Integer.parseInt(scanner.nextLine());
@@ -53,35 +50,49 @@ public class lab4{
         accountBalance = Double.parseDouble(scanner.nextLine());
         System.out.println("Account created with balance " + accountBalance);
     }
-    
+
     public static void depositMoney() {
         System.out.println("Enter amount to deposit:");
-        double amount =  Double.parseDouble(scanner.nextLine());
+        double amount = Double.parseDouble(scanner.nextLine());
+        double previousBalance = accountBalance;
         accountBalance += amount;
-        transactionDetails += "Deposit: " + amount + " | New balance: " + accountBalance + "\n";
+        String transactionDetails = "Deposited: " + amount + ", Previous Balance: " + previousBalance + ", New Balance: " + accountBalance + "\n";
         System.out.println("Deposit successful");
+        addToTransactionHistory(transactionDetails);
     }
-    
+
     public static void withdrawMoney() {
         System.out.println("Enter amount to withdraw:");
-        double amount =  Double.parseDouble(scanner.nextLine());
+        double amount = Double.parseDouble(scanner.nextLine());
+        double previousBalance = accountBalance;
         if (amount > accountBalance) {
             System.out.println("Insufficient balance");
         } else {
             accountBalance -= amount;
-            transactionDetails += "Withdrawal: " + amount + " | New balance: " + accountBalance + "\n";
+            String transactionDetails = "Withdrawn: " + amount + ", Previous Balance: " + previousBalance + ", New Balance: " + accountBalance + "\n";
             System.out.println("Withdrawal successful");
+            addToTransactionHistory(transactionDetails);
         }
     }
-    
+
     public static void printTransactions() {
-        System.out.println("Transaction Details:");
-        System.out.println(transactionDetails);
+        System.out.println("Transaction History:");
+        System.out.println(getTransactionHistory());
     }
-    
+
     public static void printAccountSummary() {
         System.out.println("Account number: " + accountNumber);
         System.out.println("Account holder name: " + accountHolderName);
         System.out.println("Account balance: " + accountBalance);
+    }
+
+    private static String transactionHistory = "";
+
+    private static void addToTransactionHistory(String transactionDetails) {
+        transactionHistory += transactionDetails;
+    }
+
+    private static String getTransactionHistory() {
+        return transactionHistory;
     }
 }

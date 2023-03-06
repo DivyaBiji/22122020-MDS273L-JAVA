@@ -95,4 +95,8 @@ public class lab4 {
     private static String getTransactionHistory() {
         return transactionHistory;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 49c64a046460f4f14bcff449896669ea8c0798d8
